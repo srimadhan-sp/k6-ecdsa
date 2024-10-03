@@ -1,4 +1,4 @@
-package main
+package k6ecdsa
 
 import (
 	"crypto/ecdsa"
