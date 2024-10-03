@@ -11,15 +11,21 @@ import (
 	"errors"
 	"log"
 	"math/big"
+
+	"go.k6.io/k6/js/modules"
 )
+
+func init() {
+	modules.Register("k6/x/file", new(ECDSA))
+}
 
 type ECDSASignature struct {
 	R, S *big.Int
 }
 
-type Crypto struct{}
+type ECDSA struct{}
 
-func (c *Crypto) SignECDSAWithPEM(privateKeyPEM string, payload []byte) (string, error) {
+func (c *ECDSA) SignECDSAWithPEM(privateKeyPEM string, payload []byte) (string, error) {
 	// log.Panic("TESTTT")
 
 	block, _ := pem.Decode([]byte(privateKeyPEM))
@@ -56,7 +62,7 @@ func (c *Crypto) SignECDSAWithPEM(privateKeyPEM string, payload []byte) (string,
 	return base64Signature, nil
 }
 
-func (c *Crypto) verifyECDSASignatureWithPEM(publicKeyPEM string, payload string, base64Signature string) (bool, error) {
+func (c *ECDSA) verifyECDSASignatureWithPEM(publicKeyPEM string, payload string, base64Signature string) (bool, error) {
 	log.Println("Verifying signature....")
 
 	// Decode the public key
