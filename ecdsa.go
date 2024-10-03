@@ -16,7 +16,7 @@ import (
 )
 
 func init() {
-	modules.Register("k6/x/file", new(ECDSA))
+	modules.Register("k6/x/ecdsa", new(ECDSA))
 }
 
 type ECDSASignature struct {
